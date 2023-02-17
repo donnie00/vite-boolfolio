@@ -4,6 +4,7 @@ export default {
 		project: {
 			type: Object,
 			required: true,
+			default: () => ({}),
 		},
 	},
 
@@ -18,7 +19,7 @@ export default {
 <template>
 	<div class="card text-center h-100">
 		<img
-			v-if="project.cover_img"
+			v-if="project?.cover_img"
 			:src="urlBackend + '/storage/' + project.cover_img"
 			class="card-img-top"
 			alt="..." />

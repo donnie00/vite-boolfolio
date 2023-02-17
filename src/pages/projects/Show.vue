@@ -21,7 +21,6 @@ export default {
 		axios
 			.get(this.urlBackend + '/api/projects/' + this.$route.params.id)
 			.then((resp) => {
-				console.log(resp);
 				this.project = resp.data;
 			})
 			.catch((err) => {
@@ -32,8 +31,6 @@ export default {
 </script>
 
 <template>
-	<!-- <ProjectCard :project="project"></ProjectCard> -->
-
 	<div class="container">
 		<h1 class="text-center display-1 m-3">{{ project.name }}</h1>
 		<div class="row">
@@ -54,7 +51,7 @@ export default {
 				<p>{{ project.description }}</p>
 				<h3>Tags:</h3>
 				<p>
-					{{ project.type }}
+					{{ project.type?.name }}
 				</p>
 				<h3>Technologies:</h3>
 				<span
