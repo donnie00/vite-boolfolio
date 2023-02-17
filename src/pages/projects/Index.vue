@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios';
+import {store} from '../../store';
 
 import ProjectCard from '../../components/ProjectCard.vue';
 
@@ -10,16 +11,22 @@ export default {
 
 	data() {
 		return {
-			urlBackend: 'http://127.0.0.1:8000',
 			projects: [],
+			order: 'oldest',
 		};
 	},
 
 	methods: {
 		fetchProjects() {
-			axios.get(this.urlBackend + '/api/projects').then((resp) => {
-				this.projects = resp.data;
-			});
+			axios
+				.get(store.urlBackend + '/api/projects', {
+					params: {
+						order: this.order,
+					},
+				})
+				.then((resp) => {
+					this.projects = resp.data;
+				});
 		},
 	},
 
@@ -30,43 +37,31 @@ export default {
 </script>
 
 <template>
-	<!-- <h1 class="m-3 text-center">Projects table</h1>
-
-	<div class="container">
-		<table class="table align-middle">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Cover</th>
-					<th>Type</th>
-				</tr>
-			</thead>
-			<tbody class="table-group-divider">
-				<tr v-for="project in projects" :key="project.id">
-					<td>{{ project.name }}</td>
-					<td>
-						<div v-if="project.cover_img">
-							<img
-								:src="urlBackend + '/storage/' + project.cover_img"
-								alt=""
-								class="img-fluid" />
-						</div>
-						<div v-else>
-							<img
-								:src="urlBackend + '/storage/placeholder-image.png'"
-								alt=""
-								class="img-fluid" />
-						</div>
-					</td>
-					<td class="">{{ project.type.name }}</td>
-				</tr>
-			</tbody>
-		</table>
-	</div> -->
-
 	<h1 class="m-3 text-center">Lista progetti</h1>
 
 	<div class="container">
+		<span for="">Order by: </span>
+		<div class="btn-group my-3" role="group">
+			<input
+				type="radio"
+				class="btn-check"
+				name="indexOrder"
+				id="oldest"
+				value="oldest"
+				v-model="order"
+				@change="fetchProjects()" />
+			<label class="btn btn-outline-primary" for="oldest"> Oldest </label>
+
+			<input
+				type="radio"
+				class="btn-check"
+				name="indexOrder"
+				id="latest"
+				value="latest"
+				v-model="order"
+				@change="fetchProjects()" />
+			<label class="btn btn-outline-primary" for="latest"> Latest </label>
+		</div>
 		<div class="row">
 			<div v-for="project in projects" :key="project.id" class="col-3">
 				<ProjectCard :project="project"></ProjectCard>

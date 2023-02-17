@@ -1,4 +1,5 @@
 <script>
+import {store} from '../../store';
 import ProjectCard from '../../components/ProjectCard.vue';
 
 import axios from 'axios';
@@ -12,14 +13,14 @@ export default {
 
 	data() {
 		return {
-			urlBackend: 'http://127.0.0.1:8000',
+			store: store,
 			project: {},
 		};
 	},
 
 	mounted() {
 		axios
-			.get(this.urlBackend + '/api/projects/' + this.$route.params.id)
+			.get(store.urlBackend + '/api/projects/' + this.$route.params.id)
 			.then((resp) => {
 				this.project = resp.data;
 			})
@@ -36,14 +37,11 @@ export default {
 		<div class="row">
 			<div class="col-4">
 				<img
-					v-if="project.cover_img"
-					:src="urlBackend + '/storage/' + project.cover_img"
-					alt=""
-					class="img-fluid" />
-				<img
-					v-else
-					:src="urlBackend + '/storage/placeholder-image.png'"
-					alt=""
+					:src="
+						store.imgPath() +
+						(project.cover_img ?? '/placeholder-image.png')
+					"
+					alt="cover_img"
 					class="img-fluid" />
 			</div>
 			<div class="col">
