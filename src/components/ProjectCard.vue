@@ -1,5 +1,9 @@
 <script>
+import {store} from '../store';
+
 export default {
+	name: 'ProjectCard',
+
 	props: {
 		project: {
 			type: Object,
@@ -10,28 +14,36 @@ export default {
 
 	data() {
 		return {
-			urlBackend: 'http://127.0.0.1:8000',
+			store: store,
 		};
+	},
+
+	computed: {
+		description() {
+			const textLength = this.project.description.length;
+
+			if (textLength > 30) {
+				return this.project.description.slice(0, 30) + '...';
+			}
+
+			return this.project.description;
+		},
 	},
 };
 </script>
 
 <template>
-	<div class="card text-center h-100">
+	<div class="card h-100 text-center">
 		<img
-			v-if="project?.cover_img"
-			:src="urlBackend + '/storage/' + project.cover_img"
-			class="card-img-top"
-			alt="..." />
-		<img
-			v-else
-			:src="urlBackend + '/storage/placeholder-image.png'"
-			alt=""
-			class="img-fluid" />
+			:src="
+				store.imgPath() + (project.cover_img ?? '/placeholder-image.png')
+			"
+			alt="cover_img"
+			class="img-fluid card-img" />
 		<div class="card-body">
 			<h5 class="card-title">{{ project.name }}</h5>
 			<p class="card-text">
-				{{ project.description }}
+				{{ description }}
 			</p>
 		</div>
 		<div class="card-footer">
@@ -41,3 +53,10 @@ export default {
 		</div>
 	</div>
 </template>
+
+<style lang="scss" scoped>
+.card-img {
+	max-height: 50%;
+	object-fit: cover;
+}
+</style>
