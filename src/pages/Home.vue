@@ -30,8 +30,8 @@ export default {
 
 	<!-- sezione ultimi progetti -->
 	<div class="container">
-		<h2>Latest projects</h2>
-		<div class="row">
+		<h2 class="my-3">Latest projects</h2>
+		<div class="row my-3">
 			<LatestProjects></LatestProjects>
 		</div>
 	</div>

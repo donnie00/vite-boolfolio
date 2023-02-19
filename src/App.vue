@@ -16,14 +16,4 @@ export default {
 
 <style lang="scss">
 @use 'styles/main.scss';
-
-// tbody {
-// 	tr {
-// 		td {
-// 			img {
-// 				max-height: 150px;
-// 			}
-// 		}
-// 	}
-// }
 </style>

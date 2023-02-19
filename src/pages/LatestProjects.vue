@@ -37,6 +37,12 @@ export default {
 			<ProjectCard :project="project"></ProjectCard>
 		</div>
 	</div>
+
+	<router-link
+		:to="{name: 'projects.index'}"
+		class="btn btn-outline-primary w-auto m-auto my-3">
+		Check all projects!
+	</router-link>
 </template>
 
 <style lang=""></style>
