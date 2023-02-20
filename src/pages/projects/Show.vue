@@ -35,14 +35,19 @@ export default {
 	<div class="container">
 		<h1 class="text-center display-1 m-3">{{ project.name }}</h1>
 		<div class="row">
-			<div class="col-4">
+			<div class="col-4 align-self-start">
 				<img
 					:src="
 						store.imgPath() +
 						(project.cover_img ?? '/placeholder-image.png')
 					"
 					alt="cover_img"
-					class="img-fluid" />
+					class="img-fluid rounded-3" />
+				<div class="my-3 text-center">
+					<i class="fa-solid fa-chevron-left"></i>
+					<span>Slides</span>
+					<i class="fa-solid fa-chevron-right"></i>
+				</div>
 			</div>
 			<div class="col">
 				<h3>Description:</h3>
@@ -57,11 +62,20 @@ export default {
 					class="rounded-pill bg-info px-3 py-1 mx-1">
 					{{ tech.name }}
 				</span>
-				<h3 class="mt-3">Git:</h3>
-				<a :href="project.github_link">Check on git!</a>
+				<h3 class="my-3">
+					<a
+						:href="project.github_link"
+						class="text-decoration-none link-dark my-3">
+						<i class="fa-brands fa-github"></i>
+						Check on git!
+					</a>
+				</h3>
 			</div>
 		</div>
+		<router-link :to="'/projects'" class="btn btn-warning"
+			>&leftarrow; Go to index</router-link
+		>
 	</div>
-
-	<router-link :to="'/projects'">Go to index</router-link>
 </template>
+
+<style lang="scss"></style>
